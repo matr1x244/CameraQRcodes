@@ -3,6 +3,7 @@ package com.example.cameraqrcodes
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         buttonGenerate = findViewById(R.id.button_generate)
 
         startGenerate()
+        visibilityQR()
     }
 
     private fun startGenerate() {
@@ -41,7 +43,18 @@ class MainActivity : AppCompatActivity() {
                     textViewText?.text.toString(), BarcodeFormat.QR_CODE, 500, 500
                 )
                 imageQr?.setImageBitmap(bitmap)
+                imageQr?.visibility = View.VISIBLE
             } catch (e: WriterException) {
+            }
+        }
+    }
+
+    private fun visibilityQR() {
+        imageQr?.setOnClickListener {
+            if (textViewText?.text.toString() == "0000") {
+                imageQr?.visibility = View.INVISIBLE
+            } else {
+                imageQr?.visibility = View.VISIBLE
             }
         }
     }
